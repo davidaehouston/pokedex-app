@@ -3,10 +3,11 @@ import "./App.css";
 import axios from "axios";
 import { PokemonType } from "./models/PokemonType";
 import Pokemon from "./components/Pokemon";
+import Header from "./components/Header";
 
 function App() {
   const [pokedex, setPokedex] = useState<PokemonType[] | []>([]);
-  const limit = 151;
+  const limit = 251;
 
   const axiosInstance = axios.create({
     baseURL: "https://pokeapi.co/api/v2/",
@@ -32,7 +33,8 @@ function App() {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 m-10">
+      <Header title="Pokédex App" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
         {pokedex.map((mon: PokemonType) => (
           <Pokemon key={mon.id} name={mon.name} id={mon.id} types={mon.types} />
         ))}
