@@ -7,7 +7,7 @@ const Card = (props: PokemonType) => {
 
   const backgroundColors = types!.map(({ type }) => {
     const [[, backgroundColor]] = Object.entries(PokemonTypeColors).filter(
-      ([key, _]) => key === type!.name
+      ([k, _]) => k === type!.name
     );
 
     return backgroundColor;
@@ -29,7 +29,7 @@ const Card = (props: PokemonType) => {
         src={"./pokeball-transparent.png"}
       />
       <img
-        className="scale-125 z-10 drop-shadow-[0_10px_10px_rgba(0,0,0,.5)]"
+        className="relative scale-125 z-10 drop-shadow-[0_10px_10px_rgba(0,0,0,.5)]"
         width={150}
         height={150}
         alt={name}
@@ -40,15 +40,13 @@ const Card = (props: PokemonType) => {
       </div>
       <div className=" flex flex-row fixed right-2 top-16 space-x-4">
         {types?.map((item) => (
-          <>
-            <img
-              key={item.slot}
-              className="relative opacity-70"
-              src={`./typeIcons/${item.type?.name}.svg`}
-              alt={item.type?.name}
-              width={40}
-            />
-          </>
+          <img
+            key={item.type?.name}
+            className="relative opacity-70"
+            src={`./typeIcons/${item.type?.name}.svg`}
+            alt={item.type?.name}
+            width={40}
+          />
         ))}
       </div>
     </div>

@@ -3,7 +3,7 @@ const Header = ({ title }: { title: string }) => {
     <>
       <div className="pt-5">
         <img
-          className="mx-auto"
+          className="mx-auto hover:animate-spin"
           width={50}
           height={50}
           src={"./pokeball.png"}
