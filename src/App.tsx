@@ -23,7 +23,7 @@ function App() {
   const collectPokemon = async (limit: number) => {
     const res = await axiosInstance.get(`pokemon?limit=${limit}`);
     const promises = res.data.results.map((item: PokemonType) =>
-      mapPokemon(item.name!)
+      mapPokemon(item?.name as string)
     );
     const pokemons = await Promise.all(promises);
     setPokedex(pokemons);
@@ -32,7 +32,10 @@ function App() {
 
   const mapPokemon = async (name: string) => {
     const res = await axiosInstance.get(`pokemon/${name}`);
-    return res.data;
+
+    if (res !== undefined) {
+      return res.data;
+    }
   };
 
   return loading ? (
@@ -48,18 +51,12 @@ function App() {
   ) : (
     <>
       <Header title="Pokédex App" />
-      <div className="flex flex-row absolute top-16 right-10">
+      <div className="flex flex-col">
         <input
-          className="text-slate-900 mx-auto bg-white p-2 border-slate-800 border-4 rounded-full m-2 w-fit"
+          className="text-slate-900 mx-auto bg-white p-2 border-slate-800 border-4 rounded-full text-center font-PokemonGB placeholder:overflow-visible"
           type="text"
           placeholder="Search Pokémon"
           onChange={(e) => setSearch(e.target.value)}
-        />
-        <img
-          className="absolute right-0.5 top-0.5 scale-75"
-          src="./pokeball-transparent.png"
-          alt=""
-          width={60}
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
