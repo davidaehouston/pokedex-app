@@ -7,7 +7,7 @@ const Card = (props: PokemonType) => {
 
   const backgroundColors = types!.map(({ type }) => {
     const [[, backgroundColor]] = Object.entries(PokemonTypeColors).filter(
-      ([k, _]) => k === type!.name
+      ([k]) => k === type!.name
     );
 
     return backgroundColor;

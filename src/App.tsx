@@ -4,6 +4,7 @@ import axios from "axios";
 import { PokemonType } from "./models/PokemonType";
 import Pokemon from "./components/Pokemon";
 import Header from "./components/Header";
+
 function App() {
   const [pokedex, setPokedex] = useState<PokemonType[] | []>([]);
   const limit = 151;
