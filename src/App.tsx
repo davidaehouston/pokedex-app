@@ -4,6 +4,7 @@ import axios from "axios";
 import { PokemonType } from "./models/PokemonType";
 import Pokemon from "./components/Pokemon";
 import Header from "./components/Header";
+import Pagination from "./components/Pagination";
 
 function App() {
   const [pokedex, setPokedex] = useState<PokemonType[] | []>([]);
@@ -11,6 +12,8 @@ function App() {
 
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pokemonPerPage] = useState(12);
 
   const axiosInstance = axios.create({
     baseURL: "https://pokeapi.co/api/v2/",
@@ -39,6 +42,10 @@ function App() {
     }
   };
 
+  const indexLastPokemon = currentPage * pokemonPerPage;
+  const indexFirstPokemon = indexLastPokemon - pokemonPerPage;
+  const currentPokemon = pokedex.slice(indexFirstPokemon, indexLastPokemon);
+
   return loading ? (
     <div className="flex flex-col space-y-4 justify-center items-center h-screen">
       <img
@@ -61,7 +68,7 @@ function App() {
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
-        {pokedex
+        {currentPokemon
           .filter((item) => {
             return search.toLowerCase() === ""
               ? item
@@ -76,6 +83,10 @@ function App() {
             />
           ))}
       </div>
+      <Pagination
+        pokemonPerPage={pokemonPerPage}
+        totalPokemon={pokedex.length}
+      />
     </>
   );
 }
