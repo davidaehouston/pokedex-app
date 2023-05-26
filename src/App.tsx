@@ -15,6 +15,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonPerPage] = useState(12);
 
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   const axiosInstance = axios.create({
     baseURL: "https://pokeapi.co/api/v2/",
   });
@@ -66,26 +68,41 @@ function App() {
           placeholder="Search Pokémon"
           onChange={(e) => setSearch(e.target.value)}
         />
+        {search ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
+            {pokedex
+              .filter((item) => {
+                return search.toLowerCase() === ""
+                  ? item
+                  : item.name?.toLowerCase().includes(search);
+              })
+              .map((mon: PokemonType) => (
+                <Pokemon
+                  key={mon.id}
+                  name={mon.name}
+                  id={mon.id}
+                  types={mon.types}
+                />
+              ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
+            {currentPokemon.map((mon: PokemonType) => (
+              <Pokemon
+                key={mon.id}
+                name={mon.name}
+                id={mon.id}
+                types={mon.types}
+              />
+            ))}
+          </div>
+        )}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
-        {currentPokemon
-          .filter((item) => {
-            return search.toLowerCase() === ""
-              ? item
-              : item.name?.toLowerCase().includes(search);
-          })
-          .map((mon: PokemonType) => (
-            <Pokemon
-              key={mon.id}
-              name={mon.name}
-              id={mon.id}
-              types={mon.types}
-            />
-          ))}
-      </div>
+
       <Pagination
         pokemonPerPage={pokemonPerPage}
         totalPokemon={pokedex.length}
+        paginate={paginate}
       />
     </>
   );
