@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
 import { PokemonType } from "./models/PokemonType";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 import Pokemon from "./components/Pokemon";
 import Header from "./components/Header";
 import Pagination from "./components/Pagination";
@@ -86,24 +87,25 @@ function App() {
               ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
-            {currentPokemon.map((mon: PokemonType) => (
-              <Pokemon
-                key={mon.id}
-                name={mon.name}
-                id={mon.id}
-                types={mon.types}
-              />
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 m-10">
+              {currentPokemon.map((mon: PokemonType) => (
+                <Pokemon
+                  key={mon.id}
+                  name={mon.name}
+                  id={mon.id}
+                  types={mon.types}
+                />
+              ))}
+            </div>
+            <Pagination
+              pokemonPerPage={pokemonPerPage}
+              totalPokemon={pokedex.length}
+              paginate={paginate}
+            />
+          </>
         )}
       </div>
-
-      <Pagination
-        pokemonPerPage={pokemonPerPage}
-        totalPokemon={pokedex.length}
-        paginate={paginate}
-      />
     </>
   );
 }

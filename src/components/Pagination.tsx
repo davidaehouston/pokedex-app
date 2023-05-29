@@ -10,11 +10,11 @@ const Pagination = ({ pokemonPerPage, totalPokemon, paginate }) => {
           {pageNumbers.map((number) => (
             <li
               key={number}
-              className=" relative flex-col inline-block mx-auto space-y-5 bottom-5"
+              className=" relative flex-col inline-flex mx-auto bottom-5 top-5"
             >
               <a
                 onClick={() => paginate(number)}
-                className="relative p-3 m-2 hover:bg-red-700 hover:rounded-full hover:text-white hover:drop-shadow-[0_10px_10px_rgba(0,0,0,.5)]"
+                className="relative p-3 m-2 focus:border-black rounded-full hover:rounded-full drop-shadow-[0_10px_10px_rgba(0,0,0,.5)] hover:border-black hover: border-4"
                 href="!#"
               >
                 {number}
