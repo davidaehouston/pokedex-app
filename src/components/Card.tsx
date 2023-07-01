@@ -1,9 +1,12 @@
 import { PokemonType } from "../models/PokemonType";
 import { PokemonTypeColors } from "../utils/globals";
+import { useNavigate } from "react-router-dom";
 
 const Card = (props: PokemonType) => {
   const { name, id, types } = props;
   const paddedIndex = ("000" + id).slice(-3);
+
+  const navigate = useNavigate();
 
   const backgroundColors = types!.map(({ type }) => {
     const [[, backgroundColor]] = Object.entries(PokemonTypeColors).filter(
@@ -15,8 +18,8 @@ const Card = (props: PokemonType) => {
 
   return (
     <div
-      onClick={() => console.log(id)}
-      className="relative rounded-2xl p-2 transform h-180 min-w-250 transition duration-500 hover:scale-180 hover:drop-shadow-[0_10px_10px_rgba(0,0,0,.5)] border-gray-950 border-4 overflow-clip"
+      onClick={() => navigate(`/pokemon/${name}`)}
+      className="cursor-pointer relative rounded-2xl p-2 transform h-180 min-w-250 transition duration-500 hover:scale-180 hover:drop-shadow-[0_10px_10px_rgba(0,0,0,.5)] border-gray-950 border-4 overflow-clip"
       style={{
         backgroundColor: backgroundColors[0].light,
       }}
