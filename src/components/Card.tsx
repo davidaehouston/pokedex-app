@@ -21,7 +21,7 @@ const Card = (props: PokemonType) => {
       onClick={() => navigate(`/pokemon/${name}`)}
       className="cursor-pointer relative rounded-2xl p-2 transform h-180 min-w-250 transition duration-500 hover:scale-180 hover:drop-shadow-[0_10px_10px_rgba(0,0,0,.5)] border-gray-950 border-4 overflow-clip"
       style={{
-        backgroundColor: backgroundColors[0].light,
+        backgroundColor: backgroundColors[0].color,
       }}
     >
       <div className="bg-gray-900 text-white rounded-xl p-2 w-20 text-center absolute top-2 right-2 font-PokemonGB border-white border-2">

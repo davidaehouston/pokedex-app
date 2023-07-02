@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { PokemonType } from "../models/PokemonType";
-import { PokemonTypeColors } from "../utils/globals";
 import axios from "axios";
 
 const PokemonDetails = () => {
@@ -17,13 +16,6 @@ const PokemonDetails = () => {
     setPokemon(pokemon);
   }, []);
 
-  // const backgroundColors = pokemon!.types!.map(({ type }) => {
-  //   const [[, backgroundColor]] = Object.entries(PokemonTypeColors).filter(
-  //     ([k]) => k === type!.name
-  //   );
-  //   return backgroundColor;
-  // });
-
   const mapPokemon = async (name: string) => {
     const res = await axiosInstance.get(`pokemon/${name}`);
 
@@ -33,16 +25,22 @@ const PokemonDetails = () => {
     }
   };
 
-  console.log(pokemon);
+  const navBack = useNavigate();
 
   return (
     <>
-      <div
-        className="absoloute p-10 rounded-3xl m-10 border-4 border-black"
-        // style={{
-        //   backgroundColor: backgroundColors[0].light,
-        // }}
-      >
+      <div>
+        <button
+          className="bg-black text-white p-2 m-5 rounded-full"
+          onClick={() => {
+            navBack(-1);
+            setPokemon(undefined);
+          }}
+        >
+          ← Go Back
+        </button>
+      </div>
+      <div className="absoloute p-10 rounded-3xl m-10 border-4 border-black">
         <div className="text-center font-PokemonGB text 2xl uppercase">
           <div>{name}</div>
           <div className="">
