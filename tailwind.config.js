@@ -7,6 +7,9 @@ export default {
       fontFamily: {
         PokemonGB: ["PokemonGB", "sans-serif"],
       },
+      animation: {
+        "spin-slow": "spin 12s linear infinite",
+      },
     },
   },
   plugins: [],
